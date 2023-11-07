@@ -1,0 +1,20 @@
+<!-- load tidyverse library and give example of random forest regression -->
+
+
+install.packages("tidyverse")
+library(tidyverse)
+library(randomForest)
+data(mtcars)
+mtcars %>% 
+  select(mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb) %>% 
+  randomForest(mpg ~ ., data = ., ntree = 1000) %>% 
+  print()
+<!-- ```
+split the data in test and train -->
+x <- mtcars %>% 
+  select(mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb)
+y <- mtcars$mpg
+set.seed(123)
+train <- sample(1:nrow(x), 0.7*nrow(x))
+test <- setdiff(1:nrow(x), train)
+<!-- ```
